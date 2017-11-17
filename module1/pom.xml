@@ -43,7 +43,7 @@
               <execution>
                   <phase>validate</phase>
                   <goals>
-                      <goal>release</goal>
+                      <goal>revision</goal>
                   </goals>
               </execution>
           </executions>
