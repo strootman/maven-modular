@@ -16,6 +16,10 @@
     <developerConnection>scm:git:git@github.com:strootman/maven-modular.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
+
+  <properties>
+    <version.hash>${git.commit.time}.${git.commit.id.abbrev}</version.hash>
+  </properties>
   
   <build>
     <plugins>
@@ -28,13 +32,32 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5.3</version>
         <configuration>
           <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
+      </plugin-->
+
+      <plugin>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <version>2.2.1</version>
+          <executions>
+              <execution>
+                  <phase>validate</phase>
+                  <goals>
+                      <goal>revision</goal>
+                  </goals>
+              </execution>
+          </executions>
+          <configuration>
+              <dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
+              <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+              <generateGitPropertiesFile>false</generateGitPropertiesFile><!-- somehow necessary. otherwise the variables are not available in the pom -->
+          </configuration>
       </plugin>
     </plugins>
   </build>
